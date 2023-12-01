@@ -1,0 +1,30 @@
+plugins {
+    id 'application'
+    id 'java'
+}
+
+mainClassName = 'com.github.nikammerlaan.aoc.Main'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation libs.junit.jupiter.api
+    testImplementation libs.junit.jupiter.params
+    testRuntimeOnly libs.junit.jupiter.engine
+}
+
+test {
+    useJUnitPlatform()
+}
+
+compileJava.options.encoding = 'UTF-8'
