@@ -8,73 +8,57 @@ public class Day01Solution extends AbstractDaySolution<List<String>> {
 
     @Override
     protected Object solvePart1(List<String> input) {
-        var targets = List.of(
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"
-        );
+        var targets = new ArrayList<Target>();
+        for(int i = 0; i <= 9; i++) {
+            targets.add(new Target(String.valueOf(i), i));
+        }
+
         return solve(input, targets);
     }
 
     @Override
     protected Object solvePart2(List<String> input) {
-        var targets = List.of(
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "zero",
-            "one",
-            "two",
-            "three",
-            "four",
-            "five",
-            "six",
-            "seven",
-            "eight",
-            "nine"
-        );
+        var targets = new ArrayList<Target>();
+        for(int i = 0; i <= 9; i++) {
+            targets.add(new Target(String.valueOf(i), i));
+
+            var word = switch(i) {
+                case 0 -> "zero";
+                case 1 -> "one";
+                case 2 -> "two";
+                case 3 -> "three";
+                case 4 -> "four";
+                case 5 -> "five";
+                case 6 -> "six";
+                case 7 -> "seven";
+                case 8 -> "eight";
+                case 9 -> "nine";
+                default -> throw new IllegalStateException();
+            };
+            targets.add(new Target(word, i));
+        }
+
         return solve(input, targets);
     }
 
-    private int solve(List<String> input, List<String> targets) {
-        record Tuple(String string, int index) {}
+    private int solve(List<String> input, List<Target> targets) {
         return input.stream()
             .mapToInt(line -> {
-                try {
-                    var firstValue = targets.stream()
-                        .map(string -> new Tuple(string, line.indexOf(string)))
-                        .filter(tuple -> tuple.index != -1)
-                        .min(Comparator.comparingInt(Tuple::index))
-                        .map(Tuple::string)
-                        .orElseThrow();
-                    var lastValue = targets.stream()
-                        .map(string -> new Tuple(string, line.lastIndexOf(string)))
-                        .filter(tuple -> tuple.index != -1)
-                        .max(Comparator.comparingInt(Tuple::index))
-                        .map(Tuple::string)
-                        .orElseThrow();
-                    var firstDigit = targets.indexOf(firstValue) % 10;
-                    var lastDigit = targets.indexOf(lastValue) % 10;
+                record Tuple(int value, int index) {}
+                var firstDigit = targets.stream()
+                    .map(target -> new Tuple(target.value, line.indexOf(target.text)))
+                    .filter(tuple -> tuple.index != -1)
+                    .min(Comparator.comparingInt(Tuple::index))
+                    .map(Tuple::value)
+                    .orElseThrow();
+                var lastDigit = targets.stream()
+                    .map(target -> new Tuple(target.value, line.lastIndexOf(target.text)))
+                    .filter(tuple -> tuple.index != -1)
+                    .max(Comparator.comparingInt(Tuple::index))
+                    .map(Tuple::value)
+                    .orElseThrow();
 
-                    return firstDigit * 10 + lastDigit;
-                } catch(Exception e) {
-                    throw e;
-                }
-
+                return firstDigit * 10 + lastDigit;
             })
             .sum();
     }
@@ -83,5 +67,7 @@ public class Day01Solution extends AbstractDaySolution<List<String>> {
     protected List<String> parseInput(String rawInput) {
         return Arrays.asList(rawInput.split("\n"));
     }
+
+    record Target(String text, int value) {}
 
 }
