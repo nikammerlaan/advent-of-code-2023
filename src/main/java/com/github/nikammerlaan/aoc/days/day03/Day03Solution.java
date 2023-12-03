@@ -45,20 +45,20 @@ public class Day03Solution extends AbstractDaySolution<Board> {
         return new Board(symbols);
     }
 
-    private Symbol parseSymbol(char[][] board, int x, int y) {
+    private Symbol parseSymbol(char[][] board, int symbolX, int symbolY) {
         var numbers = new HashSet<Number>();
 
         // For numbers that include multiple digits adjacent to this symbol, this will produce duplicates.
         // However, they will produce identical results that will get filtered out.
-        for(int x0 = x - 1; x0 <= x + 1 && x0 < board.length; x0++) {
-            for(int y0 = y - 1; y0 <= y + 1 && y0 < board[x0].length; y0++) {
-                if(isDigit(board[x0][y0])) {
-                    numbers.add(parseNumber(board, x0, y0));
+        for(int x = symbolX - 1; x <= symbolX + 1 && x < board.length; x++) {
+            for(int y = symbolY - 1; y <= symbolY + 1 && y < board[x].length; y++) {
+                if(isDigit(board[x][y])) {
+                    numbers.add(parseNumber(board, x, y));
                 }
             }
         }
 
-        return new Symbol(board[x][y], numbers);
+        return new Symbol(board[symbolX][symbolY], numbers);
     }
 
     private Number parseNumber(char[][] board, int x, int y) {
