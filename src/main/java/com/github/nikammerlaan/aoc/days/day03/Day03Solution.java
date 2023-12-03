@@ -50,8 +50,8 @@ public class Day03Solution extends AbstractDaySolution<Board> {
 
         // For numbers that include multiple digits adjacent to this symbol, this will produce duplicates.
         // However, they will produce identical results that will get filtered out.
-        for(int x = symbolX - 1; x <= symbolX + 1 && x < board.length; x++) {
-            for(int y = symbolY - 1; y <= symbolY + 1 && y < board[x].length; y++) {
+        for(int x = Math.max(0, symbolX - 1); x <= symbolX + 1 && x < board.length; x++) {
+            for(int y = Math.max(0, symbolY - 1); y <= symbolY + 1 && y < board[x].length; y++) {
                 if(isDigit(board[x][y])) {
                     numbers.add(parseNumber(board, x, y));
                 }
