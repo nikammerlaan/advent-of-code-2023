@@ -3,7 +3,9 @@ plugins {
     id 'java'
 }
 
-mainClassName = 'com.github.nikammerlaan.aoc.Main'
+application {
+    mainClass = 'com.github.nikammerlaan.aoc.Main'
+}
 
 java {
     sourceCompatibility = JavaVersion.VERSION_21
