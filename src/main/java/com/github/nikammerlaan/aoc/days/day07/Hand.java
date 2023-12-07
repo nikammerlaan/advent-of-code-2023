@@ -54,11 +54,11 @@ public record Hand(
         if(counts.getOrDefault(JOKER, 0) > 0) {
             return Arrays.stream(Card.values())
                 .filter(card -> card != JOKER && card != JACK)
-                .map(replacementCard -> cards.stream()
-                    .map(card -> card == JOKER ? replacementCard : card)
-                    .toList()
-                )
-                .map(Hand::getType)
+                .map(replacementCard -> {
+                    var newCards = new ArrayList<>(cards);
+                    newCards.replaceAll(card -> card == JOKER ? replacementCard : card);
+                    return getType(newCards);
+                })
                 .max(Comparator.naturalOrder())
                 .orElseThrow();
         }
