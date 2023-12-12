@@ -9,15 +9,15 @@ import java.util.List;
 public class Day12Solution extends AbstractDaySolution<List<Spring>> {
 
     @Override
-    protected Object solvePart1(List<Spring> rows) {
-        return rows.parallelStream()
+    protected Object solvePart1(List<Spring> springs) {
+        return springs.parallelStream()
             .mapToLong(Spring::getPossibleArrangements)
             .sum();
     }
 
     @Override
-    protected Object solvePart2(List<Spring> rows) {
-        return rows.parallelStream()
+    protected Object solvePart2(List<Spring> springs) {
+        return springs.parallelStream()
             .map(Spring::unfold)
             .mapToLong(Spring::getPossibleArrangements)
             .sum();
