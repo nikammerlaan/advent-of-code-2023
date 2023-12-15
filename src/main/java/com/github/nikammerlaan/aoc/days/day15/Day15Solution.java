@@ -82,12 +82,7 @@ public class Day15Solution extends AbstractDaySolution<List<String>> {
             .toList();
     }
 
-    record Lens(String label, int value) {
-        @Override
-        public String toString() {
-            return label + " " + value;
-        }
-    }
+    record Lens(String label, int value) {}
     record Step(String label, String operation, Integer value) {}
     private Step parseStep(String rawInput) {
         var parts = rawInput.splitWithDelimiters("[=-]", 3);
