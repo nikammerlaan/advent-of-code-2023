@@ -31,6 +31,10 @@ public record Point(
         return x >= 0 && x < array.length && y >= 0 && y < array[x].length;
     }
 
+    public boolean isValid(int[][] array) {
+        return x >= 0 && x < array.length && y >= 0 && y < array[x].length;
+    }
+
     public int getCityBlockDistance(Point other) {
         return Math.abs(x - other.x) + Math.abs(y - other.y);
     }
