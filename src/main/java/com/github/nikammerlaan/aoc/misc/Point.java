@@ -2,25 +2,37 @@ package com.github.nikammerlaan.aoc.misc;
 
 import java.util.List;
 
+import static com.github.nikammerlaan.aoc.misc.Direction.LEFT;
+import static com.github.nikammerlaan.aoc.misc.Direction.RIGHT;
+
 public record Point(
     int x,
     int y
 ) {
 
     public Point left() {
-        return new Point(x, y - 1);
+        return translate(LEFT, 1);
     }
 
     public Point right() {
-        return new Point(x, y + 1);
+        return translate(RIGHT, 1);
     }
 
     public Point up() {
-        return new Point(x - 1, y);
+        return translate(Direction.UP, 1);
     }
 
     public Point down() {
-        return new Point(x + 1, y);
+        return translate(Direction.DOWN, 1);
+    }
+
+    public Point translate(Direction direction, int amount) {
+        return switch(direction) {
+            case UP -> new Point(x - amount, y);
+            case DOWN -> new Point(x + amount, y);
+            case LEFT -> new Point(x, y - amount);
+            case RIGHT -> new Point(x, y + amount);
+        };
     }
 
     public List<Point> adjacent() {
