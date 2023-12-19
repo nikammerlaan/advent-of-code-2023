@@ -12,6 +12,10 @@ public record Range(long start, long end) {
         return end - start;
     }
 
+    public long numbers() {
+        return end - start + 1;
+    }
+
     public boolean isInRange(long value) {
         return value >= start && value <= end;
     }
