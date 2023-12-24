@@ -37,4 +37,8 @@ test {
     useJUnitPlatform()
 }
 
+run {
+    jvmArgs = ["-Xss4m"]
+}
+
 compileJava.options.encoding = 'UTF-8'
